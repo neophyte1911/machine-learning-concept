@@ -16,11 +16,31 @@ Breakdown:
         Data reduction
             Dimension reduction
             Attribute selection
-    Supervised Learning
+    Supervised Learning (Classification and Regression)
+        Regression
+            Linear
+            Polynomial
+            Softmax
+            Logistic
+        Gradient Descent
+        SVM
+        Decision Tree
+        Ensembles
+            Random Forest
+            Bagging
+            Boosting
+
     Unsupervised Learning
+        K means clustering
+        KNN
+        DBSCAN
+        Fuzzy clustering
     Reinforcement Learning
-    Evaluating/Validating Machine Learning algorithms
+        Q learning
+    Misc
         Evaluation
             Metrics
         Validation
+        Tuning
+
 
