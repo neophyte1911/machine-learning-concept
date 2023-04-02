@@ -1,6 +1,7 @@
 import json
 import random
 from sklearn.model_selection import train_test_split
+from tqdm import tqdm
 import review_helper
 
 class FileLoader():
@@ -22,16 +23,18 @@ class FileLoader():
         #########################################################################
         for file in self.filePaths:
             print(f"File {file} will be read")
+            
             with open(file) as f:
-                for line in f:
-                    reviewJsonDump = json.loads(line)
+                lines = f.readlines()
+                for i in tqdm(range(len(lines))):
+                    reviewJsonDump = json.loads(lines[i])
 
                     reviews.append(review_helper.Review(reviewJsonDump))
                     count+=1
                     
         #########################################################################
 
-        print("All files have been read and reviews have been loaded.")
+        print("All files have been read and reviews have been loaded.\n\n")
         return reviews, count
     
     def printReview(self, idx):
@@ -82,12 +85,14 @@ class FileLoader():
 
     def getRandomReview(self, sentimentToFind=None, printKey=False):
         if sentimentToFind==None:
+            print("Picking random sentiment")
             idx = random.randint(0,self.reviewCount)
             if printKey:
                 self.printReview(idx)
             return self.reviews[idx]
         
-        sentimentIndexList = [i for i in range(self.reviewCount) if self.fileReviews[i].sentiment == sentimentToFind]
+        print(f"Picking {sentimentToFind} for random review")
+        sentimentIndexList = [i for i in range(self.reviewCount) if self.reviews[i].sentiment == sentimentToFind]
         
         randomIndex = random.choice(sentimentIndexList)
         
@@ -106,8 +111,11 @@ class FileLoader():
 
 
 
-
+'''
 FILE_NAMES = ['Books_small_10000.json']
 
 reviews = FileLoader(FILE_NAMES)
 
+randomReview = reviews.getRandomReview(sentimentToFind="NEGATIVE",printKey=True)
+
+'''

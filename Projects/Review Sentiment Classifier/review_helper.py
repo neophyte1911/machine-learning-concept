@@ -2,15 +2,15 @@ from datetime import datetime
 
 class Review:
     def __init__(self, reviewJsonDump):
-        self.text = self.reviewJsonDump.get('reviewText','')
-        self.summary = self.reviewJsonDump.get('summary','')
-        self.reviewer = self.reviewJsonDump.get('reviewerName','')
-        self.itemTitle = self.reviewJsonDump.get('itemName','')
-        self.score = self.reviewJsonDump.get('overall',3)
-        self.reviewer = self.reviewJsonDump.get('reviewerName','')
+        self.text = reviewJsonDump.get('reviewText','')
+        self.summary = reviewJsonDump.get('summary','')
+        self.reviewer = reviewJsonDump.get('reviewerName','')
+        self.itemTitle = reviewJsonDump.get('itemName','')
+        self.score = reviewJsonDump.get('overall',3)
+        self.reviewer = reviewJsonDump.get('reviewerName','')
         self.sentiment = self.getSentiment(self.score)
-        self.time = self.formatDatetime(self.reviewJsonDump.get('unixReviewTime',0))
-        self.helpful = self.getHelpful(self.reviewJsonDump.get('helpful',[0,0]))
+        self.time = self.formatDatetime(reviewJsonDump.get('unixReviewTime',0))
+        self.helpful = self.getHelpful(reviewJsonDump.get('helpful',[0,0]))
         
     def getSentiment(self, score):
         if score <= 2:
