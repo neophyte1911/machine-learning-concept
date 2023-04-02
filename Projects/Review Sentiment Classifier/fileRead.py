@@ -81,7 +81,9 @@ class FileLoader():
             negative_shrunk = negative[:len(positive)]
             DistributedReviews = positive + negative_shrunk
 
-        return random.shuffle(DistributedReviews)
+        random.shuffle(DistributedReviews)
+
+        return DistributedReviews
 
     def getRandomReview(self, sentimentToFind=None, printKey=False):
         if sentimentToFind==None:
@@ -102,20 +104,9 @@ class FileLoader():
     
     def trainTestSplit(self, testSize = 0.3, randomState=42):
         training, test = train_test_split(self.reviews, test_size=testSize, random_state=randomState)
+
         trainEqualDistributedData = self.evenlyDistribute(training)
         testEqualDistributedData = self.evenlyDistribute(test)
-
+        
         return trainEqualDistributedData, testEqualDistributedData
-    
 
-
-
-
-'''
-FILE_NAMES = ['Books_small_10000.json']
-
-reviews = FileLoader(FILE_NAMES)
-
-randomReview = reviews.getRandomReview(sentimentToFind="NEGATIVE",printKey=True)
-
-'''
